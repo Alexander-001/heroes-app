@@ -20,7 +20,7 @@ export class SearchPageComponent {
     const value: string = this.searchInput.value || '';
     this.heroService
       .getSuggestions(value)
-      .subscribe((heroes) => (this.heroes = heroes));
+      .subscribe((heroes) => (this.heroes = heroes.heroes));
   }
 
   onSelectedOption(event: MatAutocompleteSelectedEvent): void {

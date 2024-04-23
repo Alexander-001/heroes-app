@@ -1,6 +1,6 @@
 <h1 class="p-3">
-  {{ currentHero.id ? "Editar" : "Agregar" }} héroe
-  <small *ngIf="currentHero.id">{{ currentHero.superhero }}</small>
+  {{ currentHero._id ? "Editar" : "Agregar" }} héroe
+  <small *ngIf="currentHero._id">{{ currentHero.superhero }}</small>
 </h1>
 
 <mat-divider class="mt-2"></mat-divider>
@@ -16,6 +16,7 @@
               type="text"
               matInput
               required=""
+              [value]="heroForm.value.superhero | titlecase"
               formControlName="superhero"
             />
           </mat-form-field>
@@ -64,7 +65,7 @@
         </form>
         <div class="flex justify-content-between">
           <button
-            *ngIf="currentHero.id"
+            *ngIf="currentHero._id"
             mat-flat-button
             color="warn"
             (click)="onDeleteHero()"

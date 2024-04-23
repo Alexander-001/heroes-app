@@ -7,6 +7,7 @@
       matInput
       [formControl]="searchInput"
       (input)="searchHero()"
+      [value]="searchInput.value | titlecase"
       [matAutocomplete]="auto"
     />
     <mat-autocomplete

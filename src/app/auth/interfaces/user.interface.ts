@@ -1,5 +1,10 @@
 export interface User {
-  id: number;
-  user: string;
-  email: string;
+  username: string;
+  password: string;
+}
+
+export interface UserService {
+  token: string;
+  user: User;
+  CodeResult: string;
 }

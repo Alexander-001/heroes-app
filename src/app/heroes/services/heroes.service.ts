@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
-import { Hero } from '../interfaces/hero.interface';
+import {
+  GetHeroService,
+  GetHeroesService,
+  Hero,
+} from '../interfaces/hero.interface';
 import { environments } from '../../../environments/environments';
 
 @Injectable({ providedIn: 'root' })
@@ -10,30 +14,32 @@ export class HeroService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getHeroes(): Observable<Hero[]> {
-    return this.httpClient.get<Hero[]>(`${this.baseUrl}/heroes`);
+  getHeroes(): Observable<GetHeroesService> {
+    return this.httpClient.get<GetHeroesService>(`${this.baseUrl}/heroes`);
   }
 
-  getHeroById(id: string): Observable<Hero | undefined> {
+  getHeroById(id: string): Observable<GetHeroService | undefined> {
     return this.httpClient
-      .get<Hero>(`${this.baseUrl}/heroes/${id}`)
+      .get<GetHeroService>(`${this.baseUrl}/heroes/${id}`)
       .pipe(catchError(() => of(undefined)));
   }
 
-  getSuggestions(query: string): Observable<Hero[]> {
-    return this.httpClient.get<Hero[]>(
-      `${this.baseUrl}/heroes?q=${query}&_limit=6`
+  getSuggestions(query: string): Observable<GetHeroesService> {
+    return this.httpClient.get<GetHeroesService>(
+      `${this.baseUrl}/heroes/suggestions?superhero=${query}`
     );
   }
 
-  addHero(hero: Hero): Observable<Hero> {
-    return this.httpClient.post<Hero>(`${this.baseUrl}/heroes`, hero);
+  addHero(hero: Hero): Observable<GetHeroService> {
+    return this.httpClient.post<GetHeroService>(
+      `${this.baseUrl}/heroes/add`,
+      hero
+    );
   }
 
-  updateHero(hero: Hero): Observable<Hero> {
-    if (!hero.id) throw Error('Hero id is required.');
-    return this.httpClient.patch<Hero>(
-      `${this.baseUrl}/heroes/${hero.id}`,
+  updateHero(hero: Hero, id: string): Observable<GetHeroService> {
+    return this.httpClient.patch<GetHeroService>(
+      `${this.baseUrl}/heroes/${id}`,
       hero
     );
   }

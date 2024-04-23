@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environments } from 'src/environments/environments';
-import { User } from '../interfaces/user.interface';
+import { User, UserService } from '../interfaces/user.interface';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -16,21 +16,19 @@ export class AuthService {
     return structuredClone(this.user);
   }
 
-  login(email: string, password: string): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/users/1`).pipe(
-      tap((user) => (this.user = user)),
-      tap((user) => localStorage.setItem('token', 'aslkljaLasdlkajldsajkldj'))
-    );
+  login(user: User): Observable<UserService> {
+    return this.http
+      .post<UserService>(`${this.baseUrl}/users/login`, user)
+      .pipe(
+        tap((userService) => (this.user = userService.user)),
+        tap((userService) => localStorage.setItem('token', userService.token))
+      );
   }
 
   checkAuthentication(): Observable<boolean> {
     const token = localStorage.getItem('token');
     if (!token) return of(false);
-    return this.http.get<User>(`${this.baseUrl}/users/1`).pipe(
-      tap((user) => (this.user = user)),
-      map((user) => !!user),
-      catchError((err) => of(false))
-    );
+    else return of(true);
   }
 
   logout() {
