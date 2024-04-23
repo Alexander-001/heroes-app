@@ -21,7 +21,11 @@ export class AuthService {
       .post<UserService>(`${this.baseUrl}/users/login`, user)
       .pipe(
         tap((userService) => (this.user = userService.user)),
-        tap((userService) => localStorage.setItem('token', userService.token))
+        tap((userService) => {
+          if (userService.token) {
+            localStorage.setItem('token', userService.token);
+          }
+        })
       );
   }
 

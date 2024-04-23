@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { User } from '../../interfaces/user.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login-page',
@@ -10,7 +11,11 @@ import { User } from '../../interfaces/user.interface';
   styles: [],
 })
 export class LoginPageComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private snackbar: MatSnackBar
+  ) {}
 
   private user: User = { username: '', password: '' };
 
@@ -29,7 +34,17 @@ export class LoginPageComponent {
 
   onLogin(): void {
     this.authService.login(this.user).subscribe((user) => {
+      if (!user.token) {
+        this.showSnackbar(`${user.message}`);
+        return;
+      }
       this.router.navigate(['/']);
+    });
+  }
+
+  showSnackbar(message: string): void {
+    this.snackbar.open(message, 'done', {
+      duration: 2500,
     });
   }
 }

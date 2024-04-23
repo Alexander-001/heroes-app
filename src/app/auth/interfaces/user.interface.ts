@@ -6,5 +6,6 @@ export interface User {
 export interface UserService {
   token: string;
   user: User;
+  message: string;
   CodeResult: string;
 }
