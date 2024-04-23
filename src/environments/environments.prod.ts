@@ -1,3 +1,3 @@
 export const environments = {
-  baseURL: 'https://alexander-ortiz.com/api',
+  baseURL: 'https://heroes-server-ff8o.onrender.com',
 };
