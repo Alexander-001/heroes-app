@@ -35,7 +35,7 @@ export class LoginPageComponent {
 
   onLogin(): void {
     this.hasLoaded = true;
-    this.authService.login(this.user).subscribe((user) => {
+    /* this.authService.login(this.user).subscribe((user) => {
       if (!user.token) {
         this.showSnackbar(`${user.message}`);
         this.hasLoaded = false;
@@ -43,7 +43,7 @@ export class LoginPageComponent {
       }
       this.hasLoaded = false;
       this.router.navigate(['/']);
-    });
+    }); */
   }
 
   showSnackbar(message: string): void {
