@@ -9,12 +9,15 @@ import { HeroService } from '../../services/heroes.service';
 })
 export class ListPageComponent implements OnInit {
   public heroes: Hero[] = [];
+  public hasLoaded: boolean = false;
 
   constructor(private heroService: HeroService) {}
 
   ngOnInit(): void {
-    this.heroService
-      .getHeroes()
-      .subscribe((heroes) => (this.heroes = heroes.heroes));
+    this.hasLoaded = true;
+    this.heroService.getHeroes().subscribe((heroes) => {
+      this.heroes = heroes.heroes;
+      this.hasLoaded = false;
+    });
   }
 }

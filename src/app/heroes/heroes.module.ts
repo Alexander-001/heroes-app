@@ -12,6 +12,7 @@ import { CardComponent } from './components/card/card.component';
 import { HeroImagePipe } from './pipes/hero-image.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     HeroesRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
 })
 export class HeroesModule {}

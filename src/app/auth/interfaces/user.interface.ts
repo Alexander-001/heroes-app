@@ -3,6 +3,10 @@ export interface User {
   password: string;
 }
 
+export interface UserAdd extends User {
+  name: string;
+}
+
 export interface UserService {
   token: string;
   user: User;

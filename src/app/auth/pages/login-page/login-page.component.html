@@ -1,4 +1,6 @@
-<div class="flex flex-column">
+<shared-loader *ngIf="hasLoaded" [serviceName]="'Login'" />
+
+<div class="flex flex-column" *ngIf="!hasLoaded">
   <span class="text-lg mb-4">Login</span>
   <mat-form-field>
     <mat-label>Usuario</mat-label>
@@ -24,6 +26,6 @@
     Ingresar
   </button>
   <div class="flex justify-content-end mt-5">
-    <a routerLink="/auth/new-account">¿Ya tienes cuenta?</a>
+    <a routerLink="/auth/new-account">¿No tienes cuenta?</a>
   </div>
 </div>
